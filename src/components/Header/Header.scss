@@ -1,58 +1,31 @@
-.GameHeader {
+.Header {
   display: flex;
-  width: 100%;
-  justify-content: space-between;
   margin-bottom: 24px;
   padding: 10px;
-  box-sizing: border-box;
-}
+  width: 100%;
+  justify-content: space-between;
 
-.Info {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: #d6cdc4;
-  width: 75px;
-  height: 75px;
-  border-radius: 5px;
-  color: #776e65;
-  box-sizing: border-box;
-  font-size: 16px;
-  margin: 0 8px 0 0;
-}
-
-.Controls {
-  display: flex;
-}
-
-.Button {
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  color: #f9f6f2;
-  font-family: sans-serif;
-  font-weight: 700;
-  font-size: 16px;
-  width: 75px;
-  height: 75px;
-
-  transition: 0.25s ease background;
-}
-
-.Start {
-  background: #1dae28;
-  font-size: 20px;
-
-  &:hover {
-    background: #179921;
+  &-Name {
+    font-size: 80px;
   }
-}
 
-.Restart {
-  background: #f1b2b2;
+  &-Controls {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
 
-  &:hover {
-    background: #f87474;
+  &-Info {
+    display: flex;
+    padding: 8px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    color: #f9f6f2;
+    font-size: 16px;
+
+    background: #bbada0;
+    border-radius: 5px;
   }
 }
