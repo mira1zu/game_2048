@@ -1,0 +1,41 @@
+@use "sass:string";
+
+@use '../../utils/variables';
+@use '../../utils/mixins';
+
+.Cell {
+  @include mixins.cell;
+
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 2rem;
+  color: #f9f6f2;
+
+  transition: transform 0.1s ease-in;
+
+  @each $cell, $color in variables.$cells {
+    &_#{$cell} {
+      background: $color;
+
+      @if $cell != "super" and $cell < 16 {
+        color: #776e65;
+      }
+
+      &::after {
+        content: string.quote(#{$cell});
+      }
+    }
+  }
+
+  @for $i from 1 through 4 {
+    @for $j from 1 through 4 {
+      &_#{$i}_#{$j} {
+        position: absolute;
+        transform: translateX((variables.$cell-size + variables.$gap) * ($i - 1)) translateY((variables.$cell-size + variables.$gap) * ($j - 1));
+      }
+    }
+  }
+}

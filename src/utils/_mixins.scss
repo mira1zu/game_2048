@@ -1,0 +1,9 @@
+@use 'variables';
+
+@mixin cell {
+  width: variables.$cell-size;
+  height: variables.$cell-size;
+
+  background: rgba(238, 228, 218, 0.35);
+  border-radius: variables.$cell-border-radius;
+}

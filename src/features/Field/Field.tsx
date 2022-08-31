@@ -11,6 +11,9 @@ import {
   moveUp,
   selectBoard,
 } from './fieldSlice';
+import Grid from '../../components/Grid';
+import Cell from '../../components/Cell';
+import CellType from '../../types/CellType';
 
 // function generateRandom(cells: Cell[]): Cell[] {
 //   if (cells.length === 16) {
@@ -56,10 +59,13 @@ import {
 const Field: React.FC = () => {
   const dispatch = useAppDispatch();
 
-  const flatCells = useAppSelector((state) => {
+  const flatCells = useAppSelector((state): CellType[] => {
     const cells = selectBoard(state);
 
-    return _.flatten(cells);
+    return _.flatten(cells)
+      .filter((cell) => cell !== null)
+    // @ts-ignore
+      .sort((a, b) => a.id - b.id) as CellType[];
   });
 
   const keyboardListener = (event: KeyboardEvent) => {
@@ -96,54 +102,17 @@ const Field: React.FC = () => {
   console.log(flatCells);
 
   return (
-    <div className="Field-Container">
-      <div className="Field">
-        <div className="FieldColumn">
-          <div className="FieldCell" />
-          <div className="FieldCell" />
-          <div className="FieldCell" />
-          <div className="FieldCell" />
-        </div>
+    <div className="Field">
+      <Grid />
 
-        <div className="FieldColumn">
-          <div className="FieldCell" />
-          <div className="FieldCell" />
-          <div className="FieldCell" />
-          <div className="FieldCell" />
-        </div>
-
-        <div className="FieldColumn">
-          <div className="FieldCell" />
-          <div className="FieldCell" />
-          <div className="FieldCell" />
-          <div className="FieldCell" />
-        </div>
-
-        <div className="FieldColumn">
-          <div className="FieldCell" />
-          <div className="FieldCell" />
-          <div className="FieldCell" />
-          <div className="FieldCell" />
-        </div>
-      </div>
-
-      <div className="Cells">
-        {flatCells.map((cell, index) => {
-          if (!cell) {
-            return null;
-          }
-
-          const x = Math.floor(index / 4);
-          const y = index % 4;
-
-          return (
-            <div
-              key={cell.id}
-              className={`FieldCell FieldCell_${cell.value} FieldCell_${x
-              + 1}_${y + 1}`}
-            />
-          );
-        })}
+      <div className="Cells-Container">
+        {flatCells.map((cell) => (
+          <Cell
+            key={cell.id}
+            coords={cell.coords}
+            value={cell.value}
+          />
+        ))}
       </div>
     </div>
   );

@@ -1,0 +1,17 @@
+@use '../../utils/variables';
+@use '../../utils/mixins';
+
+.Grid {
+  display: flex;
+  flex-direction: column;
+  gap: variables.$gap;
+}
+
+.GridRow {
+  display: flex;
+  gap: variables.$gap;
+}
+
+.GridCell {
+  @include mixins.cell;
+}
