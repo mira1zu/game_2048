@@ -1,19 +1,16 @@
 import React, { useEffect } from 'react';
-import _ from 'lodash';
+// import _ from 'lodash';
 
-import './Field.scss';
+import './Board.scss';
 
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import {
-  moveDown,
-  moveLeft,
-  moveRight,
-  moveUp,
-  selectBoard,
-} from './fieldSlice';
-import Grid from '../../components/Grid';
-import Cell from '../../components/Cell';
-import CellType from '../../types/CellType';
+  move,
+  selectCells,
+} from '../../features/Cell/state/cellSlice';
+import Grid from '../Grid';
+import Cell from '../../features/Cell';
+import Shift from '../../enum/Shift';
 
 // function generateRandom(cells: Cell[]): Cell[] {
 //   if (cells.length === 16) {
@@ -56,38 +53,14 @@ import CellType from '../../types/CellType';
 //   }
 // }
 
-const Field: React.FC = () => {
+const Board: React.FC = () => {
   const dispatch = useAppDispatch();
 
-  const flatCells = useAppSelector((state): CellType[] => {
-    const cells = selectBoard(state);
-
-    return _.flatten(cells)
-      .filter((cell) => cell !== null)
-    // @ts-ignore
-      .sort((a, b) => a.id - b.id) as CellType[];
-  });
+  const cells = useAppSelector(selectCells);
 
   const keyboardListener = (event: KeyboardEvent) => {
-    switch (event.code) {
-      case 'ArrowUp':
-        dispatch(moveUp());
-        break;
-
-      case 'ArrowDown':
-        dispatch(moveDown());
-        break;
-
-      case 'ArrowLeft':
-        dispatch(moveLeft());
-        break;
-
-      case 'ArrowRight':
-        dispatch(moveRight());
-        break;
-
-      default:
-        break;
+    if (event.code.startsWith('Arrow')) {
+      dispatch(move(event.code as Shift));
     }
   };
 
@@ -97,25 +70,24 @@ const Field: React.FC = () => {
     return () => {
       document.removeEventListener('keydown', keyboardListener);
     };
-  }, [flatCells]);
-
-  console.log(flatCells);
+  }, [cells]);
 
   return (
     <div className="Field">
       <Grid />
 
       <div className="Cells-Container">
-        {flatCells.map((cell) => (
-          <Cell
-            key={cell.id}
-            coords={cell.coords}
-            value={cell.value}
-          />
-        ))}
+        {Object.values(cells)
+          .map((cell) => (
+            <Cell
+              key={cell.id}
+              coords={cell.position}
+              value={cell.value}
+            />
+          ))}
       </div>
     </div>
   );
 };
 
-export default React.memo(Field);
+export default React.memo(Board);

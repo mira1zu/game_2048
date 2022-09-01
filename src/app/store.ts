@@ -5,12 +5,14 @@ import {
 } from '@reduxjs/toolkit';
 
 import gameReducer from '../features/Game/gameSlice';
-import fieldReducer from '../features/Field/fieldSlice';
+import cellReducer from '../features/Cell/state/cellSlice';
+import scoreReducer from '../components/Header/scoreSlice';
 
 const store = configureStore({
   reducer: {
     game: gameReducer,
-    field: fieldReducer, // CHECK NOTION FOR DETAILS
+    cell: cellReducer, // CHECK NOTION FOR DETAILS
+    score: scoreReducer,
   },
 });
 

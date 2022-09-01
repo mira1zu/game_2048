@@ -20,7 +20,7 @@
     &_#{$cell} {
       background: $color;
 
-      @if $cell != "super" and $cell < 16 {
+      @if $cell != "super" and $cell < 8 {
         color: #776e65;
       }
 

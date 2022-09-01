@@ -1,8 +1,8 @@
 enum Shift {
-  Left,
-  Right,
-  Up,
-  Down,
+  Left = 'ArrowLeft',
+  Right = 'ArrowRight',
+  Up = 'ArrowUp',
+  Down = 'ArrowDown',
 }
 
 export default Shift;

@@ -4,7 +4,7 @@ interface CellType {
   id: number;
   value: number;
   merged: boolean;
-  coords: Coords;
+  position: Coords;
 }
 
 export default CellType;

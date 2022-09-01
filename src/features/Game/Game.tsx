@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Header from '../../components/Header';
-import Field from '../Field';
+import Field from '../../components/Board';
 import Message from '../../components/Message';
 
 const Game = () => (
