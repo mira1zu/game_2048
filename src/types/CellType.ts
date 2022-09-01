@@ -2,9 +2,10 @@ import Coords from './Coords';
 
 interface CellType {
   id: number;
-  value: number;
-  merged: boolean;
   position: Coords;
+  value: number;
+  isMerged: boolean;
+  isNew: boolean;
 }
 
 export default CellType;

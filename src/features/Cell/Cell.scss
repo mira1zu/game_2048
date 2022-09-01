@@ -2,6 +2,7 @@
 
 @use '../../utils/variables';
 @use '../../utils/mixins';
+@use '../../utils/animations';
 
 .Cell {
   @include mixins.cell;
@@ -15,6 +16,17 @@
   color: #f9f6f2;
 
   transition: transform 0.1s ease-in;
+
+  &_new {
+    animation: appear 200ms ease 100ms;
+    animation-fill-mode: backwards;
+  }
+
+  &_merged {
+    z-index: 20;
+    animation: pop 200ms ease 100ms;
+    animation-fill-mode: backwards;
+  }
 
   @each $cell, $color in variables.$cells {
     &_#{$cell} {
@@ -39,3 +51,4 @@
     }
   }
 }
+
