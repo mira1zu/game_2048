@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Game from './features/Game/Game';
+import Game from './features/Game';
 
 const App = () => (
   <div className="App">

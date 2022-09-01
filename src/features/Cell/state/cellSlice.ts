@@ -9,56 +9,21 @@ import {
   getTraversal,
 } from './utils';
 
-import CellType from '../../../types/CellType';
+import CellType, { Cells } from '../../../types/CellType';
 import Shift from '../../../enum/Shift';
 import { animationLength } from '../../../utils/constants';
 import Coords from '../../../types/Coords';
 import { addScore } from '../../../components/Header/scoreSlice';
-
-export type Cells = {
-  [key: string]: CellType,
-};
+import { restartGame } from '../../../app/actions';
 
 export interface CellState {
   cells: Cells;
   nextId: number;
-  isMoving: boolean;
 }
-
-// const testCell1: CellType = {
-//   id: 0,
-//   value: 64,
-//   isMerged: false,
-//   position: {
-//     x: 2,
-//     y: 0,
-//   },
-// };
-//
-// const testCell2: CellType = {
-//   id: 1,
-//   value: 32,
-//   isMerged: false,
-//   position: {
-//     x: 0,
-//     y: 0,
-//   },
-// };
-//
-// const testCell3: CellType = {
-//   id: 2,
-//   value: 64,
-//   isMerged: false,
-//   position: {
-//     x: 0,
-//     y: 2,
-//   },
-// };
 
 const initialState: CellState = {
   cells: {},
   nextId: 0,
-  isMoving: false,
 };
 
 export const cellSlice = createSlice({
@@ -85,7 +50,11 @@ export const cellSlice = createSlice({
     updateCell: (state, action: PayloadAction<CellType>) => {
       const cell = action.payload;
 
-      state.cells[cell.id] = action.payload;
+      state.cells[cell.id] = {
+        ...action.payload,
+        isMerged: false,
+        isNew: false,
+      };
     },
     mergeCell: (
       state,
@@ -98,11 +67,14 @@ export const cellSlice = createSlice({
 
       state.cells[next.id].value *= 2;
       state.cells[next.id].isMerged = true;
+      state.cells[next.id].isNew = false;
       delete state.cells[prev.id];
     },
-    setMoving: (state, action: PayloadAction<boolean>) => {
-      state.isMoving = action.payload;
-    },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(restartGame, (state) => {
+      state.cells = {};
+    });
   },
 });
 
@@ -110,15 +82,10 @@ export const {
   createCell,
   updateCell,
   mergeCell,
-  setMoving,
 } = cellSlice.actions;
 
 export const selectCells = (state: RootState) => (
   state.cell.cells
-);
-
-export const selectMoving = (state: RootState) => (
-  state.cell.isMoving
 );
 
 const delayedMergeCell = (cells: {
@@ -131,15 +98,17 @@ const delayedMergeCell = (cells: {
   }, animationLength);
 };
 
-export const addRandomCell = (): AppThunk => (dispatch, getState) => {
-  const cell = generateRandomCell(selectCells(getState()));
+export const addRandomCell = (): AppThunk => (
+  dispatch,
+  getState,
+) => {
+  const cells = selectCells(getState());
+  const newCell = generateRandomCell(cells);
 
-  dispatch(createCell(cell));
+  dispatch(createCell(newCell));
 };
 
 export const move = (shift: Shift): AppThunk => (dispatch, getState) => {
-  dispatch(setMoving(true));
-
   const cells = selectCells(getState());
   const direction = getDirection(shift);
   const coords = getTraversal(shift);
@@ -162,7 +131,11 @@ export const move = (shift: Shift): AppThunk => (dispatch, getState) => {
 
       const nextCell = board[next.x][next.y];
 
-      if (nextCell && cell !== nextCell && nextCell.value === cell.value) {
+      if (nextCell
+        && cell.id
+        !== nextCell.id
+        && nextCell.value
+        === cell.value) {
         dispatch(updateCell({
           ...cell,
           position: next,
@@ -188,10 +161,10 @@ export const move = (shift: Shift): AppThunk => (dispatch, getState) => {
   });
 
   if (moved) {
-    setTimeout(() => dispatch(addRandomCell()), animationLength);
+    setTimeout(() => {
+      dispatch(addRandomCell());
+    }, animationLength * 1.25);
   }
-  // Update state, and timeout updates it separately after 100ms
-  setTimeout(() => dispatch(setMoving(false)), animationLength);
 };
 
 export default cellSlice.reducer;

@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import GameState from '../../enum/GameState';
-import type { RootState } from '../../app/store';
+import type { AppThunk, RootState } from '../../app/store';
 import { restartGame } from '../../app/actions';
+import { addRandomCell } from '../Cell/state/cellSlice';
 
 export interface AppState {
   gameState: GameState;
@@ -31,5 +32,10 @@ export const { setGameState } = gameSlice.actions;
 export const selectGame = (state: RootState) => (
   state.game
 );
+
+export const initGame = (): AppThunk => (dispatch) => {
+  dispatch(addRandomCell());
+  dispatch(addRandomCell());
+};
 
 export default gameSlice.reducer;

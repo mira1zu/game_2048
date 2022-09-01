@@ -2,6 +2,7 @@ import React from 'react';
 
 import './NewGameButton.scss';
 import { useAppDispatch } from '../../app/hooks';
+import { initGame } from '../../features/Game/gameSlice';
 import { restartGame } from '../../app/actions';
 
 type Props = {
@@ -11,11 +12,16 @@ type Props = {
 const NewGameButton: React.FC<Props> = ({ children }) => {
   const dispatch = useAppDispatch();
 
+  const onButtonClick = () => {
+    dispatch(restartGame());
+    dispatch(initGame());
+  };
+
   return (
     <button
       type="button"
       className="NewGameButton"
-      onClick={() => dispatch(restartGame())}
+      onClick={onButtonClick}
     >
       {children}
     </button>

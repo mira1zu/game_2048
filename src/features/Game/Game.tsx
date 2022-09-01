@@ -4,13 +4,18 @@ import Header from '../../components/Header';
 import Field from '../../components/Board';
 import Message from '../../components/Message';
 import { useAppDispatch } from '../../app/hooks';
-import { addRandomCell } from '../Cell/state/cellSlice';
+import { initGame } from './gameSlice';
+
+let init = false;
 
 const Game = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(addRandomCell());
+    if (!init) {
+      dispatch(initGame());
+      init = true;
+    }
   }, []);
 
   return (

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import './Grid.scss';
+
 import * as constants from '../../utils/constants';
 
 const Grid = () => {
@@ -23,4 +24,4 @@ const Grid = () => {
     <div className="Grid">{renderGrid()}</div>
   );
 };
-export default Grid;
+export default React.memo(Grid);

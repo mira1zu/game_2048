@@ -15,7 +15,9 @@
   font-size: 2rem;
   color: #f9f6f2;
 
-  transition: transform 0.1s ease-in;
+  transition-property: top, left;
+  transition-duration: 0.1s;
+  transition-timing-function: ease-in;
 
   &_new {
     animation: appear 200ms ease 100ms;
@@ -45,8 +47,8 @@
   @for $i from 1 through 4 {
     @for $j from 1 through 4 {
       &_#{$i}_#{$j} {
-        position: absolute;
-        transform: translateX((variables.$cell-size + variables.$gap) * ($i - 1)) translateY((variables.$cell-size + variables.$gap) * ($j - 1));
+        top: (variables.$cell-size + variables.$gap) * ($j - 1);
+        left: (variables.$cell-size + variables.$gap) * ($i - 1);
       }
     }
   }

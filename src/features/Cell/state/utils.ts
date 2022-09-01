@@ -2,7 +2,7 @@ import Coords, { Traversal } from '../../../types/Coords';
 import * as constants from '../../../utils/constants';
 import Shift from '../../../enum/Shift';
 import CellType from '../../../types/CellType';
-import type { Cells } from './cellSlice';
+import type { Cells } from '../../../types/CellType';
 
 type BoardType = (CellType | null)[][];
 
@@ -131,9 +131,7 @@ export function generateRandomCell(cells: Cells) {
   const positions = getEmptyPositions(cells);
 
   const randomValue = Math.random();
-  const randomPosition = Math.floor(Math.random() * (
-    positions.length + 1
-  ));
+  const randomPosition = Math.floor(Math.random() * positions.length);
 
   return {
     value: randomValue <= 0.1 ? 4 : 2,
