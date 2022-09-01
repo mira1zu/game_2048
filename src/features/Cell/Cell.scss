@@ -13,7 +13,7 @@
   align-items: center;
 
   font-size: 2rem;
-  color: #f9f6f2;
+  color: variables.$white-text-color;
 
   transition-property: top, left;
   transition-duration: 0.1s;
@@ -35,7 +35,7 @@
       background: $color;
 
       @if $cell != "super" and $cell < 8 {
-        color: #776e65;
+        color: variables.$dark-text-color;
       }
 
       &::after {

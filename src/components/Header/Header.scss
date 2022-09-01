@@ -1,3 +1,8 @@
+@use 'sass:color';
+
+@use '../../utils/variables';
+@use '../../utils/animations';
+
 .Header {
   display: flex;
   margin-bottom: 24px;
@@ -22,10 +27,27 @@
     align-items: center;
     justify-content: center;
 
-    color: #f9f6f2;
+    color: variables.$white-text-color;
     font-size: 16px;
 
-    background: #bbada0;
+    background: variables.$bg-color;
     border-radius: 5px;
+  }
+
+  &-Score {
+    position: relative;
+
+    font-size: 1rem;
+  }
+
+  &-DiffScore {
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    color: color.adjust(variables.$dark-text-color, $alpha: -0.1);
+
+    animation: move 700ms;
+    animation-fill-mode: both;
   }
 }

@@ -3,10 +3,11 @@ import React from 'react';
 import './Header.scss';
 import NewGameButton from '../NewGameButton';
 import { useAppSelector } from '../../app/hooks';
-import { selectScore } from './scoreSlice';
+import { selectDiff, selectScore } from './scoreSlice';
 
 const Header = () => {
   const score = useAppSelector(selectScore);
+  const diff = useAppSelector(selectDiff);
 
   return (
     <div className="Header">
@@ -15,7 +16,15 @@ const Header = () => {
         <p className="Header-Info">
           Score
           {' '}
-          <span className="Header-Score">{score}</span>
+          <div className="Header-Score">
+            {score}
+            <span
+              key={Math.random()}
+              className="Header-DiffScore"
+            >
+              {`+${diff}`}
+            </span>
+          </div>
         </p>
 
         <NewGameButton>

@@ -20,3 +20,14 @@
     transform: scale(1);
   }
 }
+
+@keyframes move {
+  0% {
+    top: 0;
+    opacity: 1;
+  }
+  100% {
+    top: -200px;
+    opacity: 0;
+  }
+}

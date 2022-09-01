@@ -2,7 +2,7 @@
 
 .Message {
   font-size: 2rem;
-  color: #f9f6f2;
+  color: variables.$white-text-color;
 
   &-Container {
     position: absolute;

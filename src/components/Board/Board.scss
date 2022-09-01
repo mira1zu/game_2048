@@ -3,7 +3,7 @@
 .Field {
   position: relative;
 
-  background: #bbada0;
+  background: variables.$bg-color;
   border-spacing: 10px;
   border-radius: variables.$field-border-radius;
   padding: 15px;
