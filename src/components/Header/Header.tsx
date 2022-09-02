@@ -13,7 +13,7 @@ const Header = () => {
     <div className="Header">
       <h1 className="Header-Name">2048</h1>
       <div className="Header-Controls">
-        <p className="Header-Info">
+        <div className="Header-Info">
           Score
           {' '}
           <div className="Header-Score">
@@ -25,7 +25,7 @@ const Header = () => {
               {`+${diff}`}
             </span>
           </div>
-        </p>
+        </div>
 
         <NewGameButton>
           New game

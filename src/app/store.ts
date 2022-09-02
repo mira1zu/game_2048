@@ -7,12 +7,14 @@ import {
 import gameReducer from '../features/Game/gameSlice';
 import cellReducer from '../features/Cell/state/cellSlice';
 import scoreReducer from '../components/Header/scoreSlice';
+import boardReducer from '../components/Board/boardSlice';
 
 const store = configureStore({
   reducer: {
     game: gameReducer,
     cell: cellReducer, // CHECK NOTION FOR DETAILS
     score: scoreReducer,
+    board: boardReducer,
   },
 });
 

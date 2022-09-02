@@ -4,17 +4,20 @@ import type { AppThunk, RootState } from '../../../app/store';
 
 import {
   calculateBoard,
-  findFarthest, generateRandomCell,
+  findFarthest,
+  generateRandomCell,
+  getCell,
   getDirection,
   getTraversal,
 } from './utils';
 
 import CellType, { Cells } from '../../../types/CellType';
 import Shift from '../../../enum/Shift';
-import { animationLength } from '../../../utils/constants';
+import { shiftAnimationLength } from '../../../utils/constants';
 import Coords from '../../../types/Coords';
 import { addScore } from '../../../components/Header/scoreSlice';
 import { restartGame } from '../../../app/actions';
+import { selectBoard } from '../../../components/Board/boardSlice';
 
 export interface CellState {
   cells: Cells;
@@ -95,7 +98,7 @@ const delayedMergeCell = (cells: {
   setTimeout(() => {
     dispatch(mergeCell(cells));
     dispatch(addScore(cells.prev.value * 2));
-  }, animationLength);
+  }, shiftAnimationLength);
 };
 
 export const addRandomCell = (): AppThunk => (
@@ -109,11 +112,11 @@ export const addRandomCell = (): AppThunk => (
 };
 
 export const move = (shift: Shift): AppThunk => (dispatch, getState) => {
-  const cells = selectCells(getState());
   const direction = getDirection(shift);
   const coords = getTraversal(shift);
 
-  let board = calculateBoard(cells);
+  // let board = calculateBoard(selectCells(getState()));
+  const board = selectBoard(getState());
   let moved = false;
 
   coords.x.forEach((x) => {
@@ -129,13 +132,9 @@ export const move = (shift: Shift): AppThunk => (dispatch, getState) => {
         next,
       } = findFarthest(board, direction, cell.position);
 
-      const nextCell = board[next.x][next.y];
+      const nextCell = getCell(board, next);
 
-      if (nextCell
-        && cell.id
-        !== nextCell.id
-        && nextCell.value
-        === cell.value) {
+      if (nextCell && nextCell.value === cell.value && !nextCell.isMerged) {
         dispatch(updateCell({
           ...cell,
           position: next,
@@ -146,24 +145,25 @@ export const move = (shift: Shift): AppThunk => (dispatch, getState) => {
           next: nextCell,
         }));
         moved = true;
-      } else if (farthest.x !== cell.position.x
-        || farthest.y !== cell.position.y) {
+      } else if (farthest.x !== x || farthest.y !== y) {
         dispatch(updateCell({
           ...cell,
           position: farthest,
         }));
 
         moved = true;
+      } else {
+        dispatch(updateCell(cell));
       }
 
-      board = calculateBoard(selectCells(getState()));
+      console.log(selectCells(getState()));
     });
   });
 
   if (moved) {
     setTimeout(() => {
       dispatch(addRandomCell());
-    }, animationLength * 1.25);
+    }, shiftAnimationLength * 1.25);
   }
 };
 

@@ -4,7 +4,7 @@ import Shift from '../../../enum/Shift';
 import CellType from '../../../types/CellType';
 import type { Cells } from '../../../types/CellType';
 
-type BoardType = (CellType | null)[][];
+export type BoardType = (CellType | null)[][];
 
 export function withinBorders(coords: Coords) {
   return (
@@ -15,7 +15,7 @@ export function withinBorders(coords: Coords) {
     );
 }
 
-export function cellAvailable(board: BoardType, coords: Coords) {
+export function cellAvailable(board: BoardType, coords: Coords) { // !
   return board[coords.x][coords.y] === null;
 }
 
@@ -40,14 +40,11 @@ export function findFarthest(
 
   return {
     farthest: previousCellPosition,
-    next: {
-      x: Math.min(Math.max(newCellPosition.x, 0), constants.boardSize - 1),
-      y: Math.min(Math.max(newCellPosition.y, 0), constants.boardSize - 1),
-    },
+    next: newCellPosition,
   };
 }
 
-export function calculateBoard(cells: Cells) {
+export function calculateBoard(cells: Cells) { // !
   const board: BoardType = [
     [null, null, null, null],
     [null, null, null, null],
@@ -137,4 +134,12 @@ export function generateRandomCell(cells: Cells) {
     value: randomValue <= 0.1 ? 4 : 2,
     position: positions[randomPosition],
   };
+}
+
+export function getCell(board: BoardType, coords: Coords) { // !
+  if (withinBorders(coords)) {
+    return board[coords.x][coords.y];
+  }
+
+  return null;
 }
