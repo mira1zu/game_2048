@@ -7,7 +7,7 @@ import {
 import gameReducer from '../features/Game/gameSlice';
 import cellReducer from '../features/Cell/state/cellSlice';
 import scoreReducer from '../components/Header/scoreSlice';
-import boardReducer from '../components/Board/boardSlice';
+import boardReducer from '../components/Board/state/boardSlice';
 
 const store = configureStore({
   reducer: {

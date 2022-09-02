@@ -3,21 +3,24 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { AppThunk, RootState } from '../../../app/store';
 
 import {
-  calculateBoard,
   findFarthest,
   generateRandomCell,
-  getCell,
   getDirection,
   getTraversal,
-} from './utils';
+  getCell,
+} from '../../../components/Board/state/utils';
 
 import CellType, { Cells } from '../../../types/CellType';
 import Shift from '../../../enum/Shift';
 import { shiftAnimationLength } from '../../../utils/constants';
 import Coords from '../../../types/Coords';
-import { addScore } from '../../../components/Header/scoreSlice';
 import { restartGame } from '../../../app/actions';
-import { selectBoard } from '../../../components/Board/boardSlice';
+import {
+  insertCell, removeCell,
+  selectBoard,
+} from '../../../components/Board/state/boardSlice';
+import { newCell } from './utils';
+import { addScore } from '../../../components/Header/scoreSlice';
 
 export interface CellState {
   cells: Cells;
@@ -39,13 +42,7 @@ export const cellSlice = createSlice({
     ) => {
       const { value, position } = action.payload;
 
-      const cell: CellType = {
-        id: state.nextId,
-        position,
-        value,
-        isMerged: false,
-        isNew: true,
-      };
+      const cell = newCell(value, position);
 
       state.nextId += 1;
       state.cells[cell.id] = cell;
@@ -106,22 +103,23 @@ export const addRandomCell = (): AppThunk => (
   getState,
 ) => {
   const cells = selectCells(getState());
-  const newCell = generateRandomCell(cells);
+  const cell = generateRandomCell(cells);
 
-  dispatch(createCell(newCell));
+  dispatch(createCell(cell));
+  dispatch(insertCell(newCell(cell.value, cell.position))); // SHIT
 };
 
 export const move = (shift: Shift): AppThunk => (dispatch, getState) => {
   const direction = getDirection(shift);
-  const coords = getTraversal(shift);
+  const traversal = getTraversal(shift);
 
   // let board = calculateBoard(selectCells(getState()));
   const board = selectBoard(getState());
   let moved = false;
 
-  coords.x.forEach((x) => {
-    coords.y.forEach((y) => {
-      const cell = board[x][y];
+  traversal.x.forEach((x) => {
+    traversal.y.forEach((y) => {
+      const cell = getCell(board, { x, y });
 
       if (!cell) {
         return;
@@ -135,6 +133,11 @@ export const move = (shift: Shift): AppThunk => (dispatch, getState) => {
       const nextCell = getCell(board, next);
 
       if (nextCell && nextCell.value === cell.value && !nextCell.isMerged) {
+        const mergedCell = newCell(nextCell.value * 2, next);
+
+        dispatch(insertCell(mergedCell));
+        dispatch(removeCell(cell));
+
         dispatch(updateCell({
           ...cell,
           position: next,
@@ -146,6 +149,8 @@ export const move = (shift: Shift): AppThunk => (dispatch, getState) => {
         }));
         moved = true;
       } else if (farthest.x !== x || farthest.y !== y) {
+        dispatch(removeCell(cell));
+        dispatch(insertCell({ ...cell, position: farthest }));
         dispatch(updateCell({
           ...cell,
           position: farthest,

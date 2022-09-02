@@ -1,7 +1,7 @@
 import Coords from './Coords';
 
 interface CellType {
-  id: number;
+  id: string;
   position: Coords;
   value: number;
   isMerged: boolean;
