@@ -16,16 +16,22 @@ const Cell: React.FC<Props> = ({
   coords,
   isMerged,
   isNew,
-}) => (
-  <div
-    className={classNames({
-      Cell: true,
-      [`Cell_${value}`]: true,
-      [`Cell_${coords.x + 1}_${coords.y + 1}`]: true,
-      Cell_new: isNew,
-      Cell_merged: isMerged,
-    })}
-  />
-);
+}) => {
+  const superValue = value <= 2048 ? value : 'super';
+
+  return (
+    <div
+      className={classNames({
+        Cell: true,
+        [`Cell_${superValue}`]: true,
+        [`Cell_${coords.x + 1}_${coords.y + 1}`]: true,
+        Cell_new: isNew,
+        Cell_merged: isMerged,
+      })}
+    >
+      {value}
+    </div>
+  );
+};
 
 export default React.memo(Cell);

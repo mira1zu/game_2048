@@ -2,6 +2,7 @@
 
 @use '../../styles/utils/variables';
 @use '../../styles/utils/mixins';
+@use '../../styles/utils/animations';
 
 .Score {
   display: flex;
@@ -28,7 +29,7 @@
   }
 
   &-StatDiff {
-    @include mixins.animation(move, 700ms);
+    @include mixins.animation(score-diff-move, 700ms);
 
     position: absolute;
     top: 0;

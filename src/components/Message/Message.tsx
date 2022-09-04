@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 import './Message.scss';
 
-import NewGameButton from '../NewGameButton';
+import RestartButton from '../RestartButton';
 
 import { useAppSelector } from '../../app/hooks';
 import {
@@ -11,6 +11,7 @@ import {
   selectIfGameLost,
   selectIfGameWon,
 } from '../../features/Game/state/gameSlice';
+import ContinueButton from '../ContinueButton';
 
 const Message = () => {
   const gameWon = useAppSelector(selectIfGameWon);
@@ -30,9 +31,19 @@ const Message = () => {
       })}
     >
       {gameWon && (
-        <p className="Message">
-          You win!
-        </p>
+        <>
+          <p className="Message">
+            You win!
+          </p>
+
+          <div className="Message-Controls">
+            <ContinueButton />
+
+            <RestartButton>
+              Play again
+            </RestartButton>
+          </div>
+        </>
       )}
 
       {gameLost && (
@@ -41,9 +52,11 @@ const Message = () => {
             You lost
           </p>
 
-          <NewGameButton>
-            Try again
-          </NewGameButton>
+          <div className="Message-Controls">
+            <RestartButton>
+              Try again
+            </RestartButton>
+          </div>
         </>
       )}
     </div>

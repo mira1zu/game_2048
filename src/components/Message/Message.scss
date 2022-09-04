@@ -31,4 +31,9 @@
       background-color: rgba(0, 0, 0, 0.4);
     }
   }
+
+  &-Controls {
+    display: flex;
+    gap: 16px;
+  }
 }

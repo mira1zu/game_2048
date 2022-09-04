@@ -21,6 +21,9 @@ export const gameSlice = createSlice({
     setGameLost: (state) => {
       state.gameState = GameState.Lost;
     },
+    setGameContinue: (state) => {
+      state.gameState = GameState.Playing;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(restartGame, (state) => {
@@ -29,7 +32,7 @@ export const gameSlice = createSlice({
   },
 });
 
-export const { setGameWon, setGameLost } = gameSlice.actions;
+export const { setGameWon, setGameLost, setGameContinue } = gameSlice.actions;
 
 export const selectIfGameWon = (state: RootState) => (
   state.game.gameState === GameState.Won

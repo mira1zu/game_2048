@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 import './Header.scss';
 
-import NewGameButton from '../NewGameButton';
+import RestartButton from '../RestartButton';
 import Score from '../../features/Score';
 import { useAppSelector } from '../../app/hooks';
 import { selectDiff, selectScore } from '../../features/Score/scoreSlice';
@@ -32,9 +32,9 @@ const Header = () => {
       </div>
 
       <div className="Header-Controls">
-        <NewGameButton>
+        <RestartButton>
           New game
-        </NewGameButton>
+        </RestartButton>
       </div>
     </div>
   );
