@@ -3,9 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from '../../../app/store';
 import { restartGame } from '../../../app/actions';
 
-import {
-  initializeBoard,
-} from './utils';
+import { initializeBoard } from './utils';
 
 import CellType from '../../../ts/types/CellType';
 import BoardType from '../../../ts/types/BoardType';

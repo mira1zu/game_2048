@@ -1,24 +1,37 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
+import _ from 'lodash';
 
 import './Board.scss';
 
 import Grid from '../../components/Grid';
 import Cell from '../../components/Cell';
 
-import { selectCells } from './state/boardSlice';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { selectCells } from './state/boardSlice';
+import { move } from './state/thunks';
 
 import Direction from '../../ts/enums/Direction';
-import { move } from './state/thunks';
+
+import * as constants from '../../utils/constants';
 
 const Board: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const cells = useAppSelector(selectCells);
 
+  const throttledMove = useCallback(_.throttle(
+    (event: KeyboardEvent) => {
+      dispatch(move(event.code as Direction));
+    },
+    constants.shiftAnimationLength,
+    {
+      leading: true,
+    },
+  ), []);
+
   const keyboardListener = (event: KeyboardEvent) => {
     if (event.code.startsWith('Arrow')) {
-      dispatch(move(event.code as Direction));
+      throttledMove(event);
     }
   };
 

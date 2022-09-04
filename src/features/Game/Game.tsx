@@ -33,4 +33,4 @@ const Game = () => {
   );
 };
 
-export default Game;
+export default React.memo(Game);
