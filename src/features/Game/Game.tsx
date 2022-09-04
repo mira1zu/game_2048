@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 
 import Header from '../../components/Header';
-import Field from '../../components/Board';
+import Field from '../Board';
 import Message from '../../components/Message';
 import { useAppDispatch } from '../../app/hooks';
-import { initGame } from './gameSlice';
+import { initGame } from './state/thunks';
 
 let init = false;
 
@@ -21,6 +21,7 @@ const Game = () => {
   return (
     <div className="Game">
       <Header />
+
       <div className="Game-Container">
         <Field />
         <Message />

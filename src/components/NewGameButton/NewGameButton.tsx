@@ -2,7 +2,7 @@ import React from 'react';
 
 import './NewGameButton.scss';
 import { useAppDispatch } from '../../app/hooks';
-import { initGame } from '../../features/Game/gameSlice';
+import { initGame } from '../../features/Game/state/thunks';
 import { restartGame } from '../../app/actions';
 
 type Props = {

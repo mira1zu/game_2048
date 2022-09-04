@@ -4,15 +4,13 @@ import {
   ThunkAction,
 } from '@reduxjs/toolkit';
 
-import gameReducer from '../features/Game/gameSlice';
-import cellReducer from '../features/Cell/state/cellSlice';
-import scoreReducer from '../components/Header/scoreSlice';
-import boardReducer from '../components/Board/state/boardSlice';
+import gameReducer from '../features/Game/state/gameSlice';
+import scoreReducer from '../features/Score/scoreSlice';
+import boardReducer from '../features/Board/state/boardSlice';
 
 const store = configureStore({
   reducer: {
-    game: gameReducer,
-    cell: cellReducer, // CHECK NOTION FOR DETAILS
+    game: gameReducer, // CHECK NOTION FOR DETAILS
     score: scoreReducer,
     board: boardReducer,
   },

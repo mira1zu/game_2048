@@ -2,13 +2,14 @@ import React, { useEffect } from 'react';
 
 import './Board.scss';
 
+import Grid from '../../components/Grid';
+import Cell from '../../components/Cell';
+
+import { selectCells } from './state/boardSlice';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import {
-  move, selectCells,
-} from '../../features/Cell/state/cellSlice';
-import Grid from '../Grid';
-import Cell from '../../features/Cell';
-import Shift from '../../enum/Shift';
+
+import Direction from '../../enum/Direction';
+import { move } from './state/thunks';
 
 const Board: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -17,7 +18,7 @@ const Board: React.FC = () => {
 
   const keyboardListener = (event: KeyboardEvent) => {
     if (event.code.startsWith('Arrow')) {
-      dispatch(move(event.code as Shift));
+      dispatch(move(event.code as Direction));
     }
   };
 

@@ -1,4 +1,5 @@
-@use 'src/utils/variables';
+@use '../../styles/utils/variables';
+@use '../../styles/utils/mixins';
 
 .Message {
   font-size: 2rem;
@@ -19,10 +20,14 @@
     border-radius: variables.$field-border-radius;
 
     &_won {
+      @include mixins.animation(message-appear, 1s, 1s);
+
       background-color: rgba(237, 194, 46, 0.4);
     }
 
     &_lost {
+      @include mixins.animation(message-appear, 1s, 1s);
+
       background-color: rgba(0, 0, 0, 0.4);
     }
   }

@@ -1,0 +1,39 @@
+@use 'sass:color';
+
+@use '../../styles/utils/variables';
+@use '../../styles/utils/mixins';
+
+.Score {
+  display: flex;
+  padding: 8px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+
+  color: variables.$white-text-color;
+  font-size: 16px;
+
+  background: variables.$bg-color;
+  border-radius: 5px;
+
+  &-Title {
+    color: darken(variables.$white-text-color, 10%);
+  }
+
+  &-Stat {
+    position: relative;
+
+    font-size: 1rem;
+  }
+
+  &-StatDiff {
+    @include mixins.animation(move, 700ms);
+
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    color: color.adjust(variables.$dark-text-color, $alpha: -0.1);
+  }
+}

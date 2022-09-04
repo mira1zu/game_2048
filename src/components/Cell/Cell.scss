@@ -1,8 +1,8 @@
 @use "sass:string";
 
-@use '../../utils/variables';
-@use '../../utils/mixins';
-@use '../../utils/animations';
+@use '../../styles/utils/variables';
+@use '../../styles/utils/mixins';
+@use '../../styles/utils/animations';
 
 .Cell {
   @include mixins.cell;
@@ -20,14 +20,11 @@
   transition-timing-function: ease-in;
 
   &_new {
-    animation: appear 200ms ease 100ms;
-    animation-fill-mode: backwards;
+    @include mixins.animation(appear, 200ms);
   }
 
   &_merged {
-    z-index: 20;
-    animation: pop 200ms ease 100ms;
-    animation-fill-mode: backwards;
+    @include mixins.animation(pop, 200ms);
   }
 
   @each $cell, $color in variables.$cells {

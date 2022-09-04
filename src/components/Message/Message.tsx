@@ -3,16 +3,19 @@ import classNames from 'classnames';
 
 import './Message.scss';
 
-import { selectGame } from '../../features/Game/gameSlice';
-import { useAppSelector } from '../../app/hooks';
-import GameState from '../../enum/GameState';
 import NewGameButton from '../NewGameButton';
 
+import { useAppSelector } from '../../app/hooks';
+import {
+  selectIfGameOver,
+  selectIfGameLost,
+  selectIfGameWon,
+} from '../../features/Game/state/gameSlice';
+
 const Message = () => {
-  const { gameState } = useAppSelector(selectGame);
-  const gameWon = gameState === GameState.Won;
-  const gameLost = gameState === GameState.Lost;
-  const gameOver = true;
+  const gameWon = useAppSelector(selectIfGameWon);
+  const gameLost = useAppSelector(selectIfGameLost);
+  const gameOver = useAppSelector(selectIfGameOver);
 
   if (!gameOver) {
     return null;

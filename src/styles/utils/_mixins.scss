@@ -1,0 +1,14 @@
+@use 'src/styles/utils/variables';
+
+@mixin cell {
+  width: variables.$cell-size;
+  height: variables.$cell-size;
+
+  background: rgba(238, 228, 218, 0.35);
+  border-radius: variables.$cell-border-radius;
+}
+
+@mixin animation($animation-name, $length, $delay: 0ms) {
+  animation: $animation-name $length ease $delay;
+  animation-fill-mode: both;
+}
