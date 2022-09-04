@@ -1,5 +1,7 @@
 @use '../scss/variables';
 
+@use './reset';
+
 *, *:before, *:after {
   box-sizing: inherit;
 }
