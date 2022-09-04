@@ -8,7 +8,7 @@ import Cell from '../../components/Cell';
 import { selectCells } from './state/boardSlice';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 
-import Direction from '../../enum/Direction';
+import Direction from '../../ts/enums/Direction';
 import { move } from './state/thunks';
 
 const Board: React.FC = () => {

@@ -1,5 +1,7 @@
-@use '../../styles/utils/variables';
-@use '../../styles/utils/mixins';
+@use 'sass:color';
+
+@use '../../scss/variables';
+@use '../../scss/mixins';
 
 .Message {
   font-size: 2rem;
@@ -22,7 +24,7 @@
     &_won {
       @include mixins.animation(message-appear, 1s, 1s);
 
-      background-color: rgba(237, 194, 46, 0.4);
+      background-color: color.adjust(variables.$gold-cell-color, $alpha: -0.6);
     }
 
     &_lost {
@@ -34,6 +36,6 @@
 
   &-Controls {
     display: flex;
-    gap: 16px;
+    gap: variables.$gap;
   }
 }

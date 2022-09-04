@@ -1,11 +1,16 @@
 import { nanoid } from '@reduxjs/toolkit';
 
-import CellType from '../../../types/CellType';
-import BoardType from '../../../types/BoardType';
-import Coords, { Traversal } from '../../../types/Coords';
-import Direction from '../../../enum/Direction';
+import CellType from '../../../ts/types/CellType';
+import BoardType from '../../../ts/types/BoardType';
+import Coords from '../../../ts/types/Coords';
+import Direction from '../../../ts/enums/Direction';
 
 import * as constants from '../../../utils/constants';
+
+interface Traversal {
+  x: number[];
+  y: number[];
+}
 
 export function initializeBoard() {
   const board: BoardType = [];

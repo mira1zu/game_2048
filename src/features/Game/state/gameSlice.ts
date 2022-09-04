@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import GameState from '../../../enum/GameState';
+import GameState from '../../../ts/enums/GameState';
 import type { RootState } from '../../../app/store';
 import { restartGame } from '../../../app/actions';
 

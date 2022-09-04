@@ -1,0 +1,35 @@
+$cell-border-radius: 6px;
+$field-border-radius: 12px;
+$cell-size: 100px;
+$gap: 15px;
+
+$cell-move-duration: 100ms;
+
+$initial-cell-color: #eee4da;
+$gold-cell-color: #edc22e;
+
+$white-text-color: #f9f6f2;
+$dark-text-color: #776e65;
+
+$dark-button-color: #8f7a66;
+
+$background-color: #fbf8ef;
+$board-background-color: #bbada0;
+
+$button-border-radius: 6px;
+$score-border-radius: 6px;
+
+$cells: (
+  2: $initial-cell-color,
+  4: #eee1c9,
+  8: #f3b27a,
+  16: #f69664,
+  32: #f77c5f,
+  64: #f75f3b,
+  128: #edd073,
+  256: #edcc62,
+  512: #edc950,
+  1024: #edc53f,
+  2048: $gold-cell-color,
+  "super": #3c3a33,
+);

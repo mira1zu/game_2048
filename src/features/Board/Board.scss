@@ -1,12 +1,11 @@
-@use '../../styles/utils/variables';
+@use '../../scss/variables';
 
 .Field {
   position: relative;
 
-  background: variables.$bg-color;
-  border-spacing: 10px;
+  background: variables.$board-background-color;
   border-radius: variables.$field-border-radius;
-  padding: 15px;
+  padding: variables.$gap;
 }
 
 .Cells {

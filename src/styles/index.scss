@@ -1,17 +1,13 @@
-@use 'utils/variables';
-
-html {
-  box-sizing: border-box;
-
-  font-size: 20px;
-}
+@use '../scss/variables';
 
 *, *:before, *:after {
   box-sizing: inherit;
 }
 
-h1 {
-  margin: 0;
+html {
+  box-sizing: border-box;
+
+  font-size: 20px;
 }
 
 body {
@@ -27,11 +23,5 @@ body {
   font-weight: 900;
   color: variables.$dark-text-color;
 
-  background: #fbf8ef;
-}
-
-.Game {
-  &-Container {
-    position: relative;
-  }
+  background: variables.$background-color;
 }

@@ -8,8 +8,4 @@ interface CellType {
   isNew: boolean;
 }
 
-export type CellsType = {
-  [key: string]: CellType;
-};
-
 export default CellType;

@@ -25,7 +25,7 @@ import {
 
 import * as constants from '../../../utils/constants';
 
-import Direction from '../../../enum/Direction';
+import Direction from '../../../ts/enums/Direction';
 
 export const createRandomCell = (): AppThunk => (
   dispatch,

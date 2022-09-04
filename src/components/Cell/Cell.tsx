@@ -2,7 +2,7 @@ import React from 'react';
 
 import './Cell.scss';
 import classNames from 'classnames';
-import Coords from '../../types/Coords';
+import Coords from '../../ts/types/Coords';
 
 type Props = {
   value: number;

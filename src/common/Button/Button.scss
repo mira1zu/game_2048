@@ -1,17 +1,26 @@
-@use '../../styles/utils/variables';
+@use 'sass:color';
+
+@use '../../scss/variables';
 
 .Button {
   padding: 16px;
 
-  font-family: sans-serif;
   font-weight: 700;
-  font-size: 16px;
+  font-size: 0.9rem;
   color: variables.$white-text-color;
 
   border: none;
-  border-radius: 5px;
-  background: #8f7a66;
+  border-radius: variables.$button-border-radius;
+  background: variables.$dark-button-color;
 
   cursor: pointer;
   transition: 0.25s ease background;
+
+  &:hover {
+    background: darken(variables.$dark-button-color, 5%);
+  }
+
+  &:active {
+    background: darken(variables.$dark-button-color, 10%);
+  }
 }

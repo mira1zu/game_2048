@@ -1,8 +1,8 @@
 @use "sass:string";
 
-@use '../../styles/utils/variables';
-@use '../../styles/utils/mixins';
-@use '../../styles/utils/animations';
+@use '../../scss/variables';
+@use '../../scss/mixins';
+@use '../../scss/animations';
 
 .Cell {
   @include mixins.cell;
@@ -16,7 +16,7 @@
   color: variables.$white-text-color;
 
   transition-property: top, left;
-  transition-duration: 0.1s;
+  transition-duration: variables.$cell-move-duration;
   transition-timing-function: ease-in;
 
   &_new {

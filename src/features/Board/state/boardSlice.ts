@@ -7,9 +7,13 @@ import {
   initializeBoard,
 } from './utils';
 
-import CellType, { CellsType } from '../../../types/CellType';
-import BoardType from '../../../types/BoardType';
-import Coords from '../../../types/Coords';
+import CellType from '../../../ts/types/CellType';
+import BoardType from '../../../ts/types/BoardType';
+import Coords from '../../../ts/types/Coords';
+
+type CellsType = {
+  [key: string]: CellType;
+};
 
 export interface BoardState {
   board: BoardType;

@@ -1,8 +1,8 @@
 @use 'sass:color';
 
-@use '../../styles/utils/variables';
-@use '../../styles/utils/mixins';
-@use '../../styles/utils/animations';
+@use '../../scss/variables';
+@use '../../scss/mixins';
+@use '../../scss/animations';
 
 .Score {
   display: flex;
@@ -10,13 +10,12 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100px;
 
   color: variables.$white-text-color;
-  font-size: 16px;
+  font-size: 0.8rem;
 
-  background: variables.$bg-color;
-  border-radius: 5px;
+  background: variables.$board-background-color;
+  border-radius: variables.$score-border-radius;
 
   &-Title {
     color: darken(variables.$white-text-color, 10%);

@@ -1,8 +1,11 @@
 import React, { useEffect } from 'react';
 
+import './game.scss';
+
 import Header from '../../components/Header';
-import Field from '../Board';
 import Message from '../../components/Message';
+import Field from '../Board';
+
 import { useAppDispatch } from '../../app/hooks';
 import { initGame } from './state/thunks';
 
