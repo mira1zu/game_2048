@@ -19,4 +19,4 @@
 
 ## Credits
 
-[Original author of 2048](https://github.com/gabrielecirulli/2048)
+[Author of 2048](https://github.com/gabrielecirulli/2048)
