@@ -1,0 +1,17 @@
+@use '../../scss/variables';
+@use '../../scss/mixins';
+
+.Grid {
+  display: flex;
+  flex-direction: column;
+  gap: variables.$gap;
+}
+
+.GridRow {
+  display: flex;
+  gap: variables.$gap;
+}
+
+.GridCell {
+  @include mixins.cell;
+}

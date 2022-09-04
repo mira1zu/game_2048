@@ -1,31 +1,41 @@
+@use 'sass:color';
+
+@use '../../scss/variables';
+@use '../../scss/mixins';
+
 .Message {
-  box-sizing: border-box;
-  width: 100%;
-  background: #d6cdc4;
-  color: #776e65;
-  padding: 10px;
-  text-align: center;
-  border-radius: 5px;
-  font-size: 20px;
-}
+  font-size: 2rem;
+  color: variables.$white-text-color;
 
-.Hidden {
-  display: none;
-}
+  &-Container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
 
-.Container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 350px;
-}
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 
-.MessageWin {
-  background: #edc22e;
-  color: #f9f6f2;
-}
+    border-radius: variables.$field-border-radius;
 
-.MessageContainer {
-  width: 100%;
-  height: 150px;
+    &_won {
+      @include mixins.animation(message-appear, 1s, 1s);
+
+      background-color: color.adjust(variables.$gold-cell-color, $alpha: -0.6);
+    }
+
+    &_lost {
+      @include mixins.animation(message-appear, 1s, 1s);
+
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+  }
+
+  &-Controls {
+    display: flex;
+    gap: variables.$gap;
+  }
 }

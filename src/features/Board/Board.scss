@@ -1,0 +1,19 @@
+@use '../../scss/variables';
+
+.Field {
+  position: relative;
+
+  background: variables.$board-background-color;
+  border-radius: variables.$field-border-radius;
+  padding: variables.$gap;
+}
+
+.Cells {
+  &-Container {
+    position: absolute;
+    top: variables.$gap;
+    bottom: variables.$gap;
+    left: variables.$gap;
+    right: variables.$gap;
+  }
+}

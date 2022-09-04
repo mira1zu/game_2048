@@ -1,21 +1,66 @@
 import React from 'react';
+import classNames from 'classnames';
 
 import './Message.scss';
 
-function Message() {
+import RestartButton from '../RestartButton';
+
+import { useAppSelector } from '../../app/hooks';
+import {
+  selectIfGameOver,
+  selectIfGameLost,
+  selectIfGameWon,
+} from '../../features/Game/state/gameSlice';
+import ContinueButton from '../ContinueButton';
+
+const Message = () => {
+  const gameWon = useAppSelector(selectIfGameWon);
+  const gameLost = useAppSelector(selectIfGameLost);
+  const gameOver = useAppSelector(selectIfGameOver);
+
+  if (!gameOver) {
+    return null;
+  }
+
   return (
-    <div className="message-container">
-      <p className="message message-lose hidden">
-        You lose! Restart the game?
-      </p>
-      <p className="message message-win hidden">
-        Winner! Congrats! You did it!
-      </p>
-      <p className="message message-start">
-        Press &quot;Start&quot; to begin game. Good luck!
-      </p>
+    <div
+      className={classNames({
+        'Message-Container': true,
+        'Message-Container_won': gameWon,
+        'Message-Container_lost': gameLost,
+      })}
+    >
+      {gameWon && (
+        <>
+          <p className="Message">
+            You win!
+          </p>
+
+          <div className="Message-Controls">
+            <ContinueButton />
+
+            <RestartButton>
+              Play again
+            </RestartButton>
+          </div>
+        </>
+      )}
+
+      {gameLost && (
+        <>
+          <p className="Message">
+            You lost
+          </p>
+
+          <div className="Message-Controls">
+            <RestartButton>
+              Try again
+            </RestartButton>
+          </div>
+        </>
+      )}
     </div>
   );
-}
+};
 
-export default Message;
+export default React.memo(Message);

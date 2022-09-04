@@ -1,58 +1,31 @@
-.GameHeader {
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-  margin-bottom: 24px;
-  padding: 10px;
-  box-sizing: border-box;
-}
+@use '../../scss/variables';
 
-.Info {
+.Header {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: #d6cdc4;
-  width: 75px;
-  height: 75px;
-  border-radius: 5px;
-  color: #776e65;
-  box-sizing: border-box;
-  font-size: 16px;
-  margin: 0 8px 0 0;
-}
+  justify-content: space-between;
+  margin-bottom: 24px;
+  padding: variables.$gap;
 
-.Controls {
-  display: flex;
-}
-
-.Button {
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  color: #f9f6f2;
-  font-family: sans-serif;
-  font-weight: 700;
-  font-size: 16px;
-  width: 75px;
-  height: 75px;
-
-  transition: 0.25s ease background;
-}
-
-.Start {
-  background: #1dae28;
-  font-size: 20px;
-
-  &:hover {
-    background: #179921;
+  &-Heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
-}
 
-.Restart {
-  background: #f1b2b2;
+  &-Name {
+    font-size: 4rem;
+  }
 
-  &:hover {
-    background: #f87474;
+  &-Controls {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  &-Info {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    justify-content: center;
   }
 }

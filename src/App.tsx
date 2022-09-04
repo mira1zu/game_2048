@@ -1,17 +1,11 @@
 import React from 'react';
 
-import Header from './components/Header';
-import Field from './components/Field';
-import Message from './components/Message';
+import Game from './features/Game';
 
-function App() {
-  return (
-    <>
-      <Header />
-      <Field />
-      <Message />
-    </>
-  );
-}
+const App = () => (
+  <div className="App">
+    <Game />
+  </div>
+);
 
 export default App;

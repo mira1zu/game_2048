@@ -1,8 +1,10 @@
 {
   "name": "game_2048",
-  "version": "0.1.0",
+  "version": "1.0.0",
+  "homepage": "https://mira1zu.github.io/game_2048",
   "private": true,
   "dependencies": {
+    "@reduxjs/toolkit": "^1.8.5",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
@@ -10,13 +12,17 @@
     "@types/node": "^16.11.51",
     "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.6",
+    "classnames": "^2.3.1",
+    "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-redux": "^8.0.2",
     "react-scripts": "5.0.1",
     "sass": "^1.54.5",
     "web-vitals": "^2.1.4"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.184",
     "@typescript-eslint/eslint-plugin": "^5.33.1",
     "@typescript-eslint/parser": "^5.33.1",
     "eslint": "^8.22.0",
@@ -26,6 +32,7 @@
     "eslint-plugin-n": "^15.2.4",
     "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-react": "^7.30.1",
+    "gh-pages": "^4.0.0",
     "stylelint": "^14.10.0",
     "stylelint-config-standard-scss": "^5.0.0",
     "typescript": "^4.7.4"
@@ -34,7 +41,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "browserslist": {
     "production": [

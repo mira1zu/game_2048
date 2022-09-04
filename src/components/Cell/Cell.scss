@@ -1,0 +1,57 @@
+@use "sass:string";
+
+@use '../../scss/variables';
+@use '../../scss/mixins';
+@use '../../scss/animations';
+
+.Cell {
+  @include mixins.cell;
+
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 2rem;
+  color: variables.$white-text-color;
+
+  transition-property: top, left;
+  transition-duration: variables.$cell-move-duration;
+  transition-timing-function: ease-in;
+
+  &_new {
+    @include mixins.animation(cell-appear, 200ms);
+  }
+
+  &_merged {
+    @include mixins.animation(cell-pop, 200ms);
+  }
+
+  @each $cell, $color in variables.$cells {
+    &_#{$cell} {
+      background: $color;
+
+      @if $cell != "super" and $cell <= 4 {
+        color: variables.$dark-text-color;
+      }
+
+      @if $cell != "super" and $cell >= 128 {
+        font-size: 1.7rem;
+      }
+
+      @if $cell == "super" or $cell >= 1024 {
+        font-size: 1.5rem;
+      }
+    }
+  }
+
+  @for $i from 1 through 4 {
+    @for $j from 1 through 4 {
+      &_#{$i}_#{$j} {
+        top: (variables.$cell-size + variables.$gap) * ($j - 1);
+        left: (variables.$cell-size + variables.$gap) * ($i - 1);
+      }
+    }
+  }
+}
+
