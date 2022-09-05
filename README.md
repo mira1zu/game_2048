@@ -1,6 +1,6 @@
 # 2048
 
-[Preview](https://mira1zu.github.io/game_2048/)
+### [Preview](https://mira1zu.github.io/game_2048/)
 
 ## Technologies used:
 
