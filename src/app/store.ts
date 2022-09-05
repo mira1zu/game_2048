@@ -10,7 +10,7 @@ import boardReducer from '../features/Board/state/boardSlice';
 
 const store = configureStore({
   reducer: {
-    game: gameReducer, // CHECK NOTION FOR DETAILS
+    game: gameReducer,
     score: scoreReducer,
     board: boardReducer,
   },
