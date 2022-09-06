@@ -1,13 +1,13 @@
 import React from 'react';
 import Button from '../../common/Button';
 import { useAppDispatch } from '../../app/hooks';
-import { setGameContinue } from '../../features/Game/state/gameSlice';
+import { gameContinued } from '../../features/Game/state/gameSlice';
 
 const ContinueButton = () => {
   const dispatch = useAppDispatch();
 
   const handleClick = () => {
-    dispatch(setGameContinue());
+    dispatch(gameContinued());
   };
 
   return (

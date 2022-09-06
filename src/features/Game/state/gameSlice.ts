@@ -15,14 +15,14 @@ export const gameSlice = createSlice({
   name: 'game',
   initialState,
   reducers: {
-    setGameWon: (state) => {
+    gameWon: (state) => {
       state.gameState = GameState.Won;
     },
-    setGameLost: (state) => {
+    gameLost: (state) => {
       state.gameState = GameState.Lost;
     },
-    setGameContinue: (state) => {
-      state.gameState = GameState.Playing;
+    gameContinued: (state) => {
+      state.gameState = GameState.Continued;
     },
   },
   extraReducers: (builder) => {
@@ -32,18 +32,22 @@ export const gameSlice = createSlice({
   },
 });
 
-export const { setGameWon, setGameLost, setGameContinue } = gameSlice.actions;
+export const { gameWon, gameLost, gameContinued } = gameSlice.actions;
 
-export const selectIfGameWon = (state: RootState) => (
+export const selectIsGameWon = (state: RootState) => (
   state.game.gameState === GameState.Won
 );
 
-export const selectIfGameLost = (state: RootState) => (
+export const selectIsGameLost = (state: RootState) => (
   state.game.gameState === GameState.Lost
 );
 
-export const selectIfGameOver = (state: RootState) => (
-  selectIfGameWon(state) || selectIfGameLost(state)
+export const selectIsGameContinued = (state: RootState) => (
+  state.game.gameState === GameState.Continued
+);
+
+export const selectIsGameOver = (state: RootState) => (
+  selectIsGameWon(state) || selectIsGameLost(state)
 );
 
 export default gameSlice.reducer;

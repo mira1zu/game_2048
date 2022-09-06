@@ -20,11 +20,13 @@
   transition-timing-function: ease-in;
 
   &_new {
-    @include mixins.animation(cell-appear, 200ms);
+    @include mixins.animation(cell-appear, 200ms, 100ms);
   }
 
   &_merged {
     @include mixins.animation(cell-pop, 200ms);
+
+    //z-index: 20;
   }
 
   @each $cell, $color in variables.$cells {
