@@ -7,16 +7,16 @@ import RestartButton from '../RestartButton';
 
 import { useAppSelector } from '../../app/hooks';
 import {
-  selectIfGameOver,
-  selectIfGameLost,
-  selectIfGameWon,
+  selectIsGameOver,
+  selectIsGameLost,
+  selectIsGameWon,
 } from '../../features/Game/state/gameSlice';
 import ContinueButton from '../ContinueButton';
 
 const Message = () => {
-  const gameWon = useAppSelector(selectIfGameWon);
-  const gameLost = useAppSelector(selectIfGameLost);
-  const gameOver = useAppSelector(selectIfGameOver);
+  const gameWon = useAppSelector(selectIsGameWon);
+  const gameLost = useAppSelector(selectIsGameLost);
+  const gameOver = useAppSelector(selectIsGameOver);
 
   if (!gameOver) {
     return null;

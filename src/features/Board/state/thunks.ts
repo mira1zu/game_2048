@@ -1,117 +1,132 @@
+import _ from 'lodash';
+
 import { AppThunk } from '../../../app/store';
 
 import {
-  addCell, mergeCells,
-  mergeCellsAtBoard,
-  moveCell, resetCellStatus,
   selectBoard,
+  selectCells,
+  setCellsAndBoard,
+  setMergedCells,
 } from './boardSlice';
 import {
-  selectIfGameOver,
-  setGameLost,
-  setGameWon,
+  selectIsGameOver, gameLost, gameWon, selectIsGameContinued,
 } from '../../Game/state/gameSlice';
-import { addScore } from '../../Score/scoreSlice';
 
 import {
-  cellMoved,
+  cellMoved, createRandomCell,
   findFarthest,
   getCell,
   getDirection, getEmptyPositions,
-  getRandomValueAndPosition, getTraversal,
-  isMovesLeft,
+  getTraversal, isMovesLeft,
   newCell,
 } from './utils';
 
-import * as constants from '../../../utils/constants';
-
 import Direction from '../../../ts/enums/Direction';
 
-export const createRandomCell = (): AppThunk => (
-  dispatch,
-  getState,
-) => {
-  const board = selectBoard(getState());
-  const { value, position } = getRandomValueAndPosition(board);
-
-  const cell = newCell(value, position);
-
-  dispatch(addCell(cell));
-};
+import * as constants from '../../../utils/constants';
+import CellType from '../../../ts/types/CellType';
+import { addScore } from '../../Score/scoreSlice';
 
 export const move = (direction: Direction): AppThunk => (
   dispatch,
   getState,
 ) => {
-  if (selectIfGameOver(getState())) {
+  if (selectIsGameOver(getState())) {
     return;
   }
 
-  let board = selectBoard(getState());
+  const newCells = _.cloneDeep(selectCells(getState()));
+  const newBoard = _.cloneDeep(selectBoard(getState()));
+
   const vector = getDirection(direction);
   const traversal = getTraversal(direction);
+
+  const cellsToAdd: CellType[] = [];
+  const cellsToRemove: CellType[] = [];
 
   let moved = false;
 
   traversal.x.forEach((x) => {
     traversal.y.forEach((y) => {
       const position = { x, y };
-      const cell = getCell(board, position);
+      const currCell = getCell(newBoard, position);
 
-      if (!cell) {
+      if (!currCell) {
         return;
       }
 
       const {
         farthest,
         next,
-      } = findFarthest(board, vector, cell.position);
+      } = findFarthest(newBoard, vector, currCell.position);
 
-      const nextCell = getCell(board, next);
+      const nextCell = getCell(newBoard, next);
 
-      if (nextCell
-        && nextCell.value === cell.value
-        && (
-          !cell.isMerged || !nextCell.isMerged
-        )
-      ) {
-        const mergeCell = newCell(nextCell.value * 2, next);
-        mergeCell.isMerged = true;
+      if (nextCell && nextCell.value === currCell.value && !nextCell.isMerged) {
+        const mergedCell = newCell(nextCell.value * 2, next);
+        mergedCell.isMerged = true;
 
-        dispatch(moveCell({ cell, newPosition: next }));
-        dispatch(mergeCellsAtBoard({ prev: cell, next: nextCell, mergeCell }));
+        newBoard[currCell.position.x][currCell.position.y] = null;
+        newBoard[nextCell.position.x][nextCell.position.y] = mergedCell;
 
-        setTimeout(() => {
-          dispatch(mergeCells({ prev: cell, next: nextCell, mergeCell }));
-          dispatch(addScore(mergeCell.value));
+        newCells[currCell.id] = {
+          ...currCell,
+          position: next,
+        };
 
-          if (mergeCell.value === 2048) {
-            dispatch(setGameWon());
-          }
-        }, constants.shiftAnimationLength);
-      } else if (farthest.x !== x || farthest.y !== y) {
-        dispatch(moveCell({ cell, newPosition: farthest }));
+        cellsToAdd.push(mergedCell);
+        cellsToRemove.push(currCell, nextCell);
+
+        if (!selectIsGameContinued(getState()) && mergedCell.value === 2048) {
+          dispatch(gameWon());
+        }
       } else {
-        dispatch(resetCellStatus(cell));
+        const updatedCell = {
+          ...currCell,
+          position: farthest,
+          isNew: false,
+          isMerged: false,
+        };
+
+        newCells[updatedCell.id] = updatedCell;
+
+        newBoard[currCell.position.x][currCell.position.y] = null;
+        newBoard[updatedCell.position.x][updatedCell.position.y] = updatedCell;
       }
 
-      board = selectBoard(getState());
-
-      if (cellMoved(board, position, cell)) {
+      if (cellMoved(newBoard, position, currCell)) {
         moved = true;
       }
     });
   });
 
   if (moved) {
-    setTimeout(() => {
-      dispatch(createRandomCell());
+    const cell = createRandomCell(newBoard);
 
-      board = selectBoard(getState());
+    newCells[cell.id] = cell;
+    newBoard[cell.position.x][cell.position.y] = cell;
 
-      if (getEmptyPositions(board).length === 0 && !isMovesLeft(board)) {
-        dispatch(setGameLost());
-      }
-    }, constants.shiftAnimationLength);
+    if (getEmptyPositions(newBoard).length === 0 && !isMovesLeft(newBoard)) {
+      dispatch(gameLost());
+    }
   }
+
+  dispatch(setCellsAndBoard({ cells: newCells, board: newBoard }));
+
+  setTimeout(() => {
+    const timeoutNewCells = _.cloneDeep(selectCells(getState()));
+    let scoreToAdd = 0;
+
+    cellsToAdd.forEach((cell) => {
+      timeoutNewCells[cell.id] = cell;
+      scoreToAdd += cell.value;
+    });
+
+    cellsToRemove.forEach((cell) => {
+      delete timeoutNewCells[cell.id];
+    });
+
+    dispatch(setMergedCells(timeoutNewCells));
+    dispatch(addScore(scoreToAdd));
+  }, constants.shiftAnimationLength);
 };

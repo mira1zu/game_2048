@@ -24,9 +24,6 @@ const Board: React.FC = () => {
       dispatch(move(event.code as Direction));
     },
     constants.shiftAnimationLength,
-    {
-      leading: true,
-    },
   ), []);
 
   const keyboardListener = (event: KeyboardEvent) => {

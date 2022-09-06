@@ -20,7 +20,7 @@
   transition-timing-function: ease-in;
 
   &_new {
-    @include mixins.animation(cell-appear, 200ms);
+    @include mixins.animation(cell-appear, 200ms, 100ms);
   }
 
   &_merged {

@@ -6,11 +6,7 @@ import Coords from '../../../ts/types/Coords';
 import Direction from '../../../ts/enums/Direction';
 
 import * as constants from '../../../utils/constants';
-
-interface Traversal {
-  x: number[];
-  y: number[];
-}
+import Traversal from '../../../ts/types/Traversal';
 
 export function initializeBoard() {
   const board: BoardType = [];
@@ -21,7 +17,7 @@ export function initializeBoard() {
   }
 
   for (let i = 0; i < constants.boardSize; i += 1) {
-    board.push(line);
+    board.push([...line]);
   }
 
   return board;
@@ -194,3 +190,9 @@ export function isMovesLeft(board: BoardType) {
 
   return false;
 }
+
+export const createRandomCell = (board: BoardType) => {
+  const { value, position } = getRandomValueAndPosition(board);
+
+  return newCell(value, position);
+};
