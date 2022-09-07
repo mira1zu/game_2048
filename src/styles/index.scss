@@ -16,7 +16,7 @@ body {
   user-select: none;
 
   display: flex;
-  min-height: 100vh;
+  height: 100vh;
   margin: 0;
   align-items: center;
   justify-content: center;
@@ -26,4 +26,6 @@ body {
   color: variables.$dark-text-color;
 
   background: variables.$background-color;
+
+  overflow: hidden;
 }
