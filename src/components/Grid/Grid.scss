@@ -5,11 +5,19 @@
   display: flex;
   flex-direction: column;
   gap: variables.$gap;
+
+  @include mixins.onTablet {
+    gap: variables.$tablet-gap;
+  }
 }
 
 .GridRow {
   display: flex;
   gap: variables.$gap;
+
+  @include mixins.onTablet {
+    gap: variables.$tablet-gap;
+  }
 }
 
 .GridCell {

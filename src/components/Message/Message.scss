@@ -37,5 +37,9 @@
   &-Controls {
     display: flex;
     gap: variables.$gap;
+
+    @include mixins.onTablet {
+      gap: variables.$tablet-gap;
+    }
   }
 }

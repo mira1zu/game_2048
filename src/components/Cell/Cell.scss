@@ -12,12 +12,16 @@
   justify-content: center;
   align-items: center;
 
-  font-size: 2rem;
+  font-size: 1.6rem;
   color: variables.$white-text-color;
 
   transition-property: top, left;
   transition-duration: variables.$cell-move-duration;
   transition-timing-function: ease-in;
+
+  @include mixins.onTablet {
+    font-size: 2rem;
+  }
 
   &_new {
     @include mixins.animation(cell-appear, 200ms, 100ms);
@@ -36,11 +40,19 @@
       }
 
       @if $cell != "super" and $cell >= 128 {
-        font-size: 1.7rem;
+        font-size: 1.4rem;
+
+        @include mixins.onTablet {
+          font-size: 1.6rem;
+        }
       }
 
       @if $cell == "super" or $cell >= 1024 {
-        font-size: 1.5rem;
+        font-size: 1.1rem;
+
+        @include mixins.onTablet {
+          font-size: 1.3rem;
+        }
       }
     }
   }
@@ -50,6 +62,11 @@
       &_#{$i}_#{$j} {
         top: (variables.$cell-size + variables.$gap) * ($j - 1);
         left: (variables.$cell-size + variables.$gap) * ($i - 1);
+
+        @include mixins.onTablet {
+          top: (variables.$tablet-cell-size + variables.$tablet-gap) * ($j - 1);
+          left: (variables.$tablet-cell-size + variables.$tablet-gap) * ($i - 1);
+        }
       }
     }
   }

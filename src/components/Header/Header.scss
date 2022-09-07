@@ -1,4 +1,5 @@
 @use '../../scss/variables';
+@use '../../scss/mixins';
 
 .Header {
   display: flex;
@@ -8,6 +9,11 @@
   margin-bottom: 24px;
   padding: variables.$gap;
 
+  @include mixins.onTablet {
+    gap: variables.$tablet-gap;
+    padding: variables.$tablet-gap;
+  }
+
   &-Heading {
     display: flex;
     justify-content: space-between;
@@ -15,7 +21,11 @@
   }
 
   &-Name {
-    font-size: 4rem;
+    font-size: 3.4rem;
+
+    @include mixins.onTablet {
+      font-size: 4rem;
+    }
   }
 
   &-Controls {
